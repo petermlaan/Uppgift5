@@ -26,10 +26,10 @@ internal class Garage<T> : IEnumerable<T> where T : Vehicle
             }
         throw new Exception("Out of parking space");
     }
-    public void RemoveVehicle(T vehicle)
+    public void RemoveVehicle(string license)
     {
         for (int i = 0; i < _vehicles.Length; i++)
-            if (_vehicles[i] != null && _vehicles[i]!.License.ToUpper() == vehicle.License.ToUpper())
+            if (_vehicles[i] != null && _vehicles[i]!.License.ToUpper() == license.ToUpper())
             {
                 _vehicles[i] = null;
                 return;
@@ -43,11 +43,12 @@ internal class Garage<T> : IEnumerable<T> where T : Vehicle
                 return v!;
         return null;
     }
-    public IEnumerable<T> Search(string license, string color)
+    public IEnumerable<T> Search(string color,string type, int wheels = -1)
     {
         return this.Where(v => 
-            (license.Length == 0 || license.ToUpper() == v.License.ToUpper()) 
-            && (color.Length == 0 || color.ToUpper() == v.Color.ToUpper()));
+            (color.Length == 0 || color.ToUpper() == v.Color.ToUpper())
+            && (type.Length == 0 || type.ToUpper() == v.GetType().Name.ToUpper())
+            && (wheels < 0 || wheels == v.Wheels));
 
     }
     public IEnumerator<T> GetEnumerator()
