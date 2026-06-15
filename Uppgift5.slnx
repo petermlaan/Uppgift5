@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="../NTest/NTest.csproj" Id="57619ed4-3e23-4837-974b-041abfffde54" />
+  <Project Path="NTest/NTest.csproj" />
   <Project Path="Uppgift5.csproj" />
 </Solution>
