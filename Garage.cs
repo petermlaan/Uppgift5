@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Uppgift5;
 
-internal class Garage<T> : IEnumerable<T> where T : Vehicle
+public class Garage<T> : IEnumerable<T> where T : Vehicle
 {
     private T?[] _vehicles;
 
@@ -17,14 +17,14 @@ internal class Garage<T> : IEnumerable<T> where T : Vehicle
     {
         foreach (var v in _vehicles)
             if (v != null && v.License.ToUpper() == vehicle.License.ToUpper())
-                throw new Exception("Vehicle with same license already exists");
+                throw new ArgumentException("Vehicle with same license already exists");
         for (int i = 0; i < _vehicles.Length; i++)
             if (_vehicles[i] == null)
             {
                 _vehicles[i] = vehicle;
                 return;
             }
-        throw new Exception("Out of parking space");
+        throw new OverflowException("Out of parking space");
     }
     public void RemoveVehicle(string license)
     {
@@ -34,7 +34,7 @@ internal class Garage<T> : IEnumerable<T> where T : Vehicle
                 _vehicles[i] = null;
                 return;
             }
-        throw new Exception("No such vehicle");
+        throw new ArgumentException("No such vehicle");
     }
     public T? FindVehicle(string license)
     {
